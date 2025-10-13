@@ -228,17 +228,15 @@ pip install -r requirements.txt
 - [Documentación oficial de Scikit-learn](https://scikit-learn.org/stable/)
 - [NumPy Documentation](https://numpy.org/doc/)
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Matplotlib Documentation](https://matplotlib.org/stable/index.html)
+- [Seaborn Documentation](https://seaborn.pydata.org/)
+- [Plotly Documentation](https://plotly.com/python/)
+- [XGBoost Documentation](https://xgboost.readthedocs.io/en/stable/)
+- [scikit-plot Documentation](https://scikit-plot.readthedocs.io/en/stable/)
+- [Jupyter Notebook Documentation](https://jupyter-notebook.readthedocs.io/en/stable/)
+- [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/stable/)
 - [Kaggle Learn](https://www.kaggle.com/learn)
 - [Google's Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course)
-
-## 🤝 Contribuciones
-
-Este curso es la síntesis de múltiples versiones optimizadas para:
-
-- **Claridad máxima** para principiantes
-- **Completitud** de contenidos
-- **Funcionalidad** de todos los códigos
-- **Pedagogía** efectiva
 
 ## 📄 Licencia
 
