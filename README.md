@@ -232,7 +232,7 @@ pip install -r requirements.txt
 - [Seaborn Documentation](https://seaborn.pydata.org/)
 - [Plotly Documentation](https://plotly.com/python/)
 - [XGBoost Documentation](https://xgboost.readthedocs.io/en/stable/)
-- [scikit-plot Documentation](https://scikit-plot.readthedocs.io/en/stable/)
+
 - [Jupyter Notebook Documentation](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/stable/)
 - [Kaggle Learn](https://www.kaggle.com/learn)
