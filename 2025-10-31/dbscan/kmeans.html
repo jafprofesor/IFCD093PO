@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulación K-means</title>
+    <link rel="stylesheet" href="kmeans-styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Simulación del Algoritmo K-means</h1>
+
+      <div class="simulation-container">
+        <div class="canvas-container">
+          <canvas id="kmeansCanvas" width="600" height="600"></canvas>
+        </div>
+
+        <div class="controls">
+          <div class="dataset-selection">
+            <h3>Seleccionar Dataset</h3>
+            <div class="parameter">
+              <label for="datasetType">Tipo de Dataset:</label>
+              <input
+                type="range"
+                id="datasetType"
+                min="1"
+                max="6"
+                value="1"
+                step="1"
+              />
+              <span id="datasetTypeDisplay">Clústeres Normales</span>
+            </div>
+          </div>
+
+          <div class="parameters">
+            <div class="parameter">
+              <label for="kValue">Número de Clústeres (K):</label>
+              <input
+                type="range"
+                id="kValue"
+                min="2"
+                max="10"
+                value="3"
+                step="1"
+              />
+              <span id="kValueDisplay">3</span>
+            </div>
+            <div class="parameter">
+              <label for="animationSpeed">Velocidad de Animación:</label>
+              <input
+                type="range"
+                id="animationSpeed"
+                min="100"
+                max="2000"
+                value="500"
+                step="100"
+              />
+              <span id="speedDisplay">500 ms</span>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button id="generateBtn">Generar Dataset</button>
+            <button id="startBtn">Iniciar</button>
+            <button id="pauseBtn" disabled>Pausar</button>
+            <button id="resetBtn">Resetear</button>
+          </div>
+
+          <div class="stats">
+            <h3>Estadísticas</h3>
+            <div id="iterationCount">Iteración: 0</div>
+            <div id="convergenceStatus">Estado: No iniciado</div>
+          </div>
+
+          <div class="legend">
+            <h3>Leyenda</h3>
+            <div class="legend-item">
+              <div class="color-box centroid"></div>
+              <span>Centroides</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box previous-centroid"></div>
+              <span>Centroides Anteriores</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="explanation">
+        <h2>Explicación del Algoritmo</h2>
+        <div id="explanationText" class="explanation-text">
+          <p>
+            Bienvenido a la simulación del algoritmo K-means. Selecciona un tipo
+            de dataset, ajusta el número de clústeres (K) y pulsa "Generar
+            Dataset" para comenzar.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="kmeans-script.js"></script>
+  </body>
+</html>
