@@ -1,0 +1,1 @@
+https://repo.anaconda.com/archive/Anaconda3-2025.12-1-Windows-x86_64.exe
