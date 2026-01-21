@@ -1,0 +1,98 @@
+
+# ========== CONCEPTOS BÁSICOS ==========
+
+**Aprendizaje supervisado**: Tipo de aprendizaje automático donde el modelo se entrena con pares de entrada y salida etiquetados. Ejemplo: predecir el precio de una casa a partir de su tamaño.
+
+**Aprendizaje no supervisado**: El modelo encuentra patrones en datos sin etiquetas. Ejemplo: agrupar clientes por comportamiento de compra (clustering).
+
+**Regresión**: Tarea de predicción de un valor numérico continuo. Ejemplo: predecir la temperatura o el precio de una acción.
+
+**Clasificación**: Tarea de asignar una etiqueta categórica. Ejemplo: detectar si un correo es spam o no, o diagnosticar enfermedades.
+
+**Overfitting**: Ocurre cuando un modelo aprende demasiado bien los datos de entrenamiento, incluyendo ruido, y falla en datos nuevos. Es como memorizar respuestas sin entender.
+
+**Underfitting**: El modelo es demasiado simple y no captura patrones relevantes en los datos. Rendimiento pobre tanto en entrenamiento como en test.
+
+# ========== VALIDACIÓN Y MÉTRICAS ==========
+
+**Validación cruzada**: Técnica para evaluar la capacidad de generalización de un modelo dividiendo los datos en k particiones (folds) y entrenando k veces.
+
+**Precisión (accuracy)**: Proporción de predicciones correctas sobre el total. No es ideal para datos desbalanceados (ej: 95% clase A, 5% clase B).
+
+**Recall (sensibilidad)**: Proporción de casos positivos correctamente identificados. Importante en diagnósticos médicos donde no queremos perder casos positivos.
+
+**Precision**: Proporción de predicciones positivas que son correctas. Importante cuando los falsos positivos son costosos (ej: spam).
+
+**F1-Score**: Media armónica entre precision y recall. Útil cuando queremos balance entre ambas métricas. Rango: 0 a 1.
+
+**AUC-ROC**: Área bajo la curva ROC. Mide la capacidad del modelo para distinguir entre clases. Valor ideal: 1.0, random: 0.5.
+
+**Matriz de confusión**: Tabla que muestra verdaderos positivos, falsos positivos, verdaderos negativos y falsos negativos. Fundamental para entender errores.
+
+# ========== MODELOS CLÁSICOS ==========
+
+**Random Forest**: Ensemble de árboles de decisión entrenados con subconjuntos aleatorios de datos y características. Robusto y eficaz, poco propenso a overfitting.
+
+**Gradient Boosting**: Ensemble que construye árboles secuencialmente, cada uno corrigiendo errores del anterior. Ejemplos: XGBoost, LightGBM, CatBoost.
+
+**Support Vector Machine (SVM)**: Modelo que busca el hiperplano óptimo que separa clases maximizando el margen. Funciona bien en espacios de alta dimensión.
+
+**K-Nearest Neighbors (KNN)**: Clasifica basándose en los k vecinos más cercanos. Simple pero costoso computacionalmente en grandes datasets.
+
+**Regresión Logística**: A pesar del nombre, es un algoritmo de clasificación. Estima probabilidades usando la función sigmoide.
+
+**Naive Bayes**: Clasificador probabilístico basado en el teorema de Bayes. Asume independencia entre features (naive). Muy rápido y eficaz en texto.
+
+# ========== REGULARIZACIÓN ==========
+
+**Regularización L1 (Lasso)**: Añade penalización proporcional al valor absoluto de los coeficientes. Fuerza algunos coeficientes a cero, realizando selección de features.
+
+**Regularización L2 (Ridge)**: Penaliza el cuadrado de los coeficientes. Reduce su magnitud pero raramente los fuerza a cero. Previene overfitting.
+
+**Elastic Net**: Combina L1 y L2. Útil cuando hay muchas features correlacionadas. Parámetro alpha controla el balance entre ambas.
+
+**Dropout**: Técnica de regularización en redes neuronales. Apaga aleatoriamente neuronas durante entrenamiento para prevenir co-adaptación.
+
+# ========== OPTIMIZACIÓN ==========
+
+**Gradiente descendente**: Algoritmo de optimización que ajusta parámetros iterativamente en dirección opuesta al gradiente para minimizar la pérdida.
+
+**Stochastic Gradient Descent (SGD)**: Variante que actualiza parámetros usando un solo ejemplo (o mini-batch) por iteración. Más rápido pero más ruidoso.
+
+**Adam optimizer**: Algoritmo de optimización adaptativo que combina momentum y RMSprop. Muy popular en deep learning por su eficacia.
+
+**Learning rate**: Tasa de aprendizaje que controla el tamaño de los pasos en la optimización. Muy importante: si es muy alto, diverge; muy bajo, converge lentamente.
+
+# ========== DEEP LEARNING ==========
+
+**Red neuronal**: Modelo inspirado en el cerebro humano, compuesto por capas de neuronas artificiales. En scikit-learn: MLPClassifier/MLPRegressor.
+
+**Convolutional Neural Network (CNN)**: Red neuronal especializada en datos con estructura de grilla (imágenes). Usa capas convolucionales para detectar patrones locales.
+
+**Recurrent Neural Network (RNN)**: Red diseñada para secuencias (texto, series temporales). Mantiene memoria de inputs anteriores. Ejemplos: LSTM, GRU.
+
+**Transfer Learning**: Reutilizar un modelo pre-entrenado en un dataset grande como punto de partida para una tarea similar. Ahorra tiempo y datos.
+
+**Batch Normalization**: Normaliza las activaciones de cada capa. Acelera entrenamiento y permite learning rates mayores.
+
+# ========== FEATURE ENGINEERING ==========
+
+**Feature scaling**: Normalizar o estandarizar features para que tengan escalas comparables. Crítico para SVM, KNN, redes neuronales.
+
+**One-hot encoding**: Convertir variables categóricas en vectores binarios. Ejemplo: color [rojo, azul, verde] → [1,0,0], [0,1,0], [0,0,1].
+
+**Feature selection**: Seleccionar subset de features relevantes. Métodos: filtros (correlación), wrappers (recursive feature elimination), embedded (Lasso).
+
+**PCA (Principal Component Analysis)**: Reduce dimensionalidad proyectando datos en direcciones de máxima varianza. Útil para visualización y reducir complejidad.
+
+# ========== MLOPS Y PRODUCCIÓN ==========
+
+**Pipeline**: Secuencia de transformaciones y modelo encadenados. En scikit-learn: sklearn.pipeline.Pipeline. Previene data leakage y simplifica código.
+
+**Hiperparámetros**: Parámetros que se configuran antes del entrenamiento (ej: profundidad de árbol, learning rate). Se optimizan con Grid Search o Random Search.
+
+**Bias-Variance tradeoff**: Balance entre error por sesgo (modelo demasiado simple) y error por varianza (modelo demasiado complejo). Objetivo: minimizar ambos.
+
+**Ensemble learning**: Combinar múltiples modelos para mejorar rendimiento. Estrategias: bagging (Random Forest), boosting (XGBoost), stacking.
+
+**Data leakage**: Filtración de información del conjunto de test al entrenamiento. Causa overfitting artificial y resultados engañosos. Muy común y peligroso.

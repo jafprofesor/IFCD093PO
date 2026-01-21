@@ -1,0 +1,337 @@
+# Contenido Mejorado para Punto 2.2: Implementación de la Función Sigmoide
+
+## Markdown + Python para el Punto 2.2
+
+### 📌 Markdown Explicativo
+
+```markdown
+### 2.2 Implementación Práctica de la Función Sigmoide <a id='2.2-implementacion-log'></a>
+
+#### 🎯 Objetivo
+Entender cómo la función sigmoide transforma una predicción lineal en una probabilidad.
+
+#### 🧮 Paso 1: Entender la Función Sigmoide
+
+La función sigmoide (función logística) es:
+
+$$ \sigma(z) = \frac{1}{1 + e^{-z}} $$
+
+Donde:
+- **z**: Es la salida de la regresión lineal: $z = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots$
+- **σ(z)**: Es la probabilidad predicha (siempre entre 0 y 1)
+
+#### 🔍 Propiedades Clave de la Sigmoide:
+
+| Entrada (z) | Salida σ(z) | Interpretación |
+|:---|:---|:---|
+| z → -∞ | σ(z) → 0 | Predicción muy negativa = 0% probabilidad |
+| z = -5 | σ(z) ≈ 0.007 | Casi imposible (0.7%) |
+| z = 0 | σ(z) = 0.5 | Punto de decisión (50%) |
+| z = 5 | σ(z) ≈ 0.993 | Casi seguro (99.3%) |
+| z → +∞ | σ(z) → 1 | Predicción muy positiva = 100% probabilidad |
+
+#### ✨ Intuición Visual
+
+```
+          Probabilidad
+              ↑
+            1 │         ╱╱╱╱
+              │        ╱╱  (z = 0, p = 0.5)
+            0.5│      ╱╱
+              │     ╱
+              │    ╱
+            0 │___________________→ z
+           -10  -5   0   5   10
+           
+La curva en S (sigmoide) transforma cualquier z en [0,1]
+```
+
+#### 🔄 De Predicción Lineal a Probabilidad
+
+**PASO 1: Predicción Lineal**
+```
+z = 0.5 + 2×edad - 1×riesgo
+```
+
+**PASO 2: Aplicar Sigmoide**
+```
+P(Churn=1) = σ(z) = 1/(1 + e^(-z))
+```
+
+**PASO 3: Tomar Decisión**
+```
+Si P > 0.5 → Predicción = CHURN (1)
+Si P ≤ 0.5 → Predicción = NO CHURN (0)
+```
+```
+
+### 🐍 Python: Visualización de la Sigmoide
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.special import expit  # Función sigmoide optimizada
+
+# Crear valores de z
+z = np.linspace(-10, 10, 1000)
+
+# Calcular la sigmoide usando dos métodos
+# Método 1: Implementación manual
+sigmoid_manual = 1 / (1 + np.exp(-z))
+
+# Método 2: Usando scipy (más estable numéricamente)
+sigmoid_scipy = expit(z)
+
+# Crear la visualización
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Gráfico 1: La función sigmoide
+ax1 = axes[0]
+ax1.plot(z, sigmoid_scipy, linewidth=3, color='#e74c3c', label='σ(z) = 1/(1+e^(-z))')
+ax1.axhline(y=0.5, color='#3498db', linestyle='--', linewidth=2, label='Punto de decisión (p=0.5)')
+ax1.axvline(x=0, color='#2ecc71', linestyle='--', linewidth=2, label='z=0')
+ax1.scatter([0], [0.5], color='#f39c12', s=200, zorder=5, edgecolors='black', linewidth=2)
+ax1.grid(True, alpha=0.3)
+ax1.set_xlabel('z (Puntuación Lineal)', fontsize=12, fontweight='bold')
+ax1.set_ylabel('σ(z) (Probabilidad)', fontsize=12, fontweight='bold')
+ax1.set_title('Función Sigmoide - Transformación de z a Probabilidad', fontsize=13, fontweight='bold')
+ax1.set_ylim([-0.05, 1.05])
+ax1.legend(fontsize=10, loc='lower right')
+
+# Gráfico 2: Comparación Lineal vs Sigmoide
+ax2 = axes[1]
+# Regresión lineal normal (sin restricción)
+z_linear = 0.1 * z  # Una línea con pendiente 0.1
+ax2.plot(z, z_linear, linewidth=2, color='#95a5a6', label='Regresión Lineal (ilimitada)', linestyle='--')
+ax2.plot(z, sigmoid_scipy, linewidth=3, color='#e74c3c', label='Sigmoide (0-1)')
+ax2.axhline(y=0, color='gray', linestyle='-', linewidth=0.5)
+ax2.axhline(y=1, color='gray', linestyle='-', linewidth=0.5)
+ax2.axhline(y=0.5, color='#3498db', linestyle='--', linewidth=1.5, alpha=0.7)
+ax2.fill_between(z, 0, 1, alpha=0.1, color='#3498db', label='Rango de probabilidad válida')
+ax2.set_xlabel('z (Puntuación Lineal)', fontsize=12, fontweight='bold')
+ax2.set_ylabel('Predicción', fontsize=12, fontweight='bold')
+ax2.set_title('¿Por Qué Necesitamos la Sigmoide?', fontsize=13, fontweight='bold')
+ax2.set_ylim([-2, 3])
+ax2.set_xlim([-10, 10])
+ax2.legend(fontsize=10)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("✅ La sigmoide garantiza que SIEMPRE obtenemos probabilidades entre 0 y 1")
+```
+
+### 🎬 Ejemplo Práctico: De z a Predicción
+
+```python
+# Función sigmoide personalizada para entender paso a paso
+def sigmoide(z):
+    """
+    Calcula la función sigmoide de forma segura.
+    
+    Parámetros:
+    -----------
+    z : float o np.array
+        Valor(es) de entrada (puntuación lineal)
+    
+    Retorna:
+    --------
+    float o np.array
+        Probabilidad entre 0 y 1
+    """
+    # Usamos clip para evitar overflow en valores muy grandes/pequeños
+    z_safe = np.clip(z, -500, 500)
+    return 1 / (1 + np.exp(-z_safe))
+
+# Ejemplo 1: Un cliente individual
+print("=" * 70)
+print("EJEMPLO: Predicción de Churn para UN Cliente")
+print("=" * 70)
+
+# Parámetros del modelo (supuestos)
+beta_0 = -0.5  # Intercepto
+beta_1 = 0.02  # Coeficiente de antigüedad
+beta_2 = 0.03  # Coeficiente de gasto_mensual
+
+# Datos del cliente
+antiguedad = 24  # meses
+gasto_mensual = 50  # euros
+
+# Paso 1: Calcular z (predicción lineal)
+z = beta_0 + beta_1 * antiguedad + beta_2 * gasto_mensual
+print(f"\n📊 PASO 1: Calcular Puntuación Lineal (z)")
+print(f"   z = β₀ + β₁×antiguedad + β₂×gasto")
+print(f"   z = {beta_0} + {beta_1}×{antiguedad} + {beta_2}×{gasto_mensual}")
+print(f"   z = {z:.4f}")
+
+# Paso 2: Aplicar sigmoide
+probabilidad_churn = sigmoide(z)
+print(f"\n🔄 PASO 2: Aplicar Sigmoide σ(z)")
+print(f"   P(Churn=1) = 1 / (1 + e^(-z))")
+print(f"   P(Churn=1) = 1 / (1 + e^(-{z:.4f}))")
+print(f"   P(Churn=1) = {probabilidad_churn:.4f}")
+
+# Paso 3: Tomar decisión
+prediccion = 1 if probabilidad_churn > 0.5 else 0
+print(f"\n🎯 PASO 3: Tomar Decisión")
+print(f"   Umbral: 0.5")
+print(f"   Probabilidad: {probabilidad_churn:.1%}")
+if probabilidad_churn > 0.5:
+    print(f"   ✅ PREDICCIÓN: CHURN (abandono cliente)")
+else:
+    print(f"   ✅ PREDICCIÓN: NO CHURN (mantiene cliente)")
+
+# Ejemplo 2: Varios clientes
+print("\n" + "=" * 70)
+print("EJEMPLO: Predicción de Churn para VARIOS Clientes")
+print("=" * 70)
+
+clientes_datos = {
+    'Cliente': ['A', 'B', 'C', 'D', 'E'],
+    'Antigüedad (meses)': [6, 12, 24, 36, 48],
+    'Gasto Mensual (€)': [30, 50, 75, 100, 150]
+}
+
+resultados = []
+for i in range(len(clientes_datos['Cliente'])):
+    ant = clientes_datos['Antigüedad (meses)'][i]
+    gasto = clientes_datos['Gasto Mensual (€)'][i]
+    
+    z_cliente = beta_0 + beta_1 * ant + beta_2 * gasto
+    prob_cliente = sigmoide(z_cliente)
+    pred_cliente = 1 if prob_cliente > 0.5 else 0
+    
+    resultados.append({
+        'Cliente': clientes_datos['Cliente'][i],
+        'Antigüedad': ant,
+        'Gasto': gasto,
+        'z': z_cliente,
+        'P(Churn)': prob_cliente,
+        'Predicción': 'CHURN' if pred_cliente == 1 else 'NO CHURN'
+    })
+
+# Mostrar tabla
+df_predicciones = pd.DataFrame(resultados)
+print("\n" + df_predicciones.to_string(index=False))
+
+# Visualizar resultados
+fig, ax = plt.subplots(figsize=(10, 6))
+colores = ['#e74c3c' if p > 0.5 else '#2ecc71' for p in df_predicciones['P(Churn)']]
+barras = ax.bar(df_predicciones['Cliente'], df_predicciones['P(Churn)'], color=colores, alpha=0.7, edgecolor='black', linewidth=2)
+ax.axhline(y=0.5, color='#3498db', linestyle='--', linewidth=2.5, label='Umbral de Decisión (0.5)')
+ax.set_ylabel('Probabilidad de Churn', fontsize=12, fontweight='bold')
+ax.set_xlabel('Cliente', fontsize=12, fontweight='bold')
+ax.set_title('Predicciones de Churn para Múltiples Clientes', fontsize=13, fontweight='bold')
+ax.set_ylim([0, 1])
+ax.legend(fontsize=11)
+ax.grid(True, alpha=0.3, axis='y')
+
+# Añadir etiquetas en las barras
+for i, (barra, prob) in enumerate(zip(barras, df_predicciones['P(Churn)'])):
+    altura = barra.get_height()
+    pred_text = '✅ CHURN' if prob > 0.5 else '✅ NO CHURN'
+    ax.text(barra.get_x() + barra.get_width()/2., altura + 0.02,
+            f'{prob:.1%}\n{pred_text}',
+            ha='center', va='bottom', fontweight='bold', fontsize=10)
+
+plt.tight_layout()
+plt.show()
+
+print("\n💡 LECCIONES CLAVE:")
+print("  1. La sigmoide GARANTIZA probabilidades entre 0 y 1")
+print("  2. A mayor z, mayor probabilidad de clase 1")
+print("  3. El umbral 0.5 es convencional pero se puede ajustar")
+print("  4. Probabilidades > 0.5 → Predicción = 1 (Churn)")
+print("  5. Probabilidades ≤ 0.5 → Predicción = 0 (No Churn)")
+```
+
+### 📊 Comparación: Regresión Lineal vs Regresión Logística
+
+```python
+# Crear datos de ejemplo
+np.random.seed(42)
+X_demo = np.random.randn(100, 1) * 3
+y_demo = (X_demo.ravel() > 0).astype(int)  # Etiqueta binaria
+
+# Entrenar ambos modelos
+from sklearn.linear_model import LinearRegression, LogisticRegression
+
+modelo_lineal = LinearRegression().fit(X_demo, y_demo)
+modelo_logistico = LogisticRegression().fit(X_demo, y_demo)
+
+# Generar predicciones para visualizar
+X_range = np.linspace(-6, 6, 300).reshape(-1, 1)
+y_lineal = modelo_lineal.predict(X_range)
+y_logistico = modelo_logistico.predict_proba(X_range)[:, 1]
+
+# Graficar
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Subplot 1: Regresión Lineal
+ax1 = axes[0]
+ax1.scatter(X_demo, y_demo, alpha=0.6, s=100, color='#3498db', edgecolors='black', linewidth=1)
+ax1.plot(X_range, y_lineal, color='#e74c3c', linewidth=3, label='Predicción Lineal')
+ax1.axhline(y=0.5, color='#2ecc71', linestyle='--', linewidth=2, label='Umbral 0.5')
+ax1.fill_between(X_range.ravel(), 0, 1, alpha=0.1, color='#95a5a6')
+ax1.set_xlabel('Característica', fontsize=11, fontweight='bold')
+ax1.set_ylabel('Predicción', fontsize=11, fontweight='bold')
+ax1.set_title('❌ Regresión Lineal\n(Predice fuera de [0,1])', fontsize=12, fontweight='bold', color='#e74c3c')
+ax1.set_ylim([-0.5, 1.5])
+ax1.legend(fontsize=10)
+ax1.grid(True, alpha=0.3)
+
+# Subplot 2: Regresión Logística
+ax2 = axes[1]
+ax2.scatter(X_demo, y_demo, alpha=0.6, s=100, color='#3498db', edgecolors='black', linewidth=1)
+ax2.plot(X_range, y_logistico, color='#2ecc71', linewidth=3, label='Sigmoide Logística')
+ax2.axhline(y=0.5, color='#3498db', linestyle='--', linewidth=2, label='Umbral 0.5')
+ax2.fill_between(X_range.ravel(), 0, 1, alpha=0.1, color='#2ecc71')
+ax2.set_xlabel('Característica', fontsize=11, fontweight='bold')
+ax2.set_ylabel('Probabilidad', fontsize=11, fontweight='bold')
+ax2.set_title('✅ Regresión Logística\n(Siempre en [0,1])', fontsize=12, fontweight='bold', color='#27ae60')
+ax2.set_ylim([-0.05, 1.05])
+ax2.legend(fontsize=10)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("✨ DIFERENCIA CLAVE:")
+print("  • Regresión Lineal: Puede predecir valores < 0 o > 1")
+print("  • Regresión Logística: SIEMPRE predice probabilidades entre 0 y 1")
+```
+
+### 🎓 Resumen Conceptual
+
+```markdown
+**¿POR QUÉ NECESITAMOS LA SIGMOIDE?**
+
+1️⃣ **Regresión Lineal sin restricciones**
+   - Entrada: cualquier número
+   - Salida: cualquier número (incluso -100 o +1000)
+   - Problema: ¡No es una probabilidad válida!
+
+2️⃣ **Sigmoide: La solución mágica**
+   - Entrada: z (cualquier número real)
+   - Salida: siempre entre 0 y 1 ✅
+   - Interpretación: Probabilidad de la clase 1
+
+3️⃣ **Cómo funciona la decisión**
+   - Calcula: z = β₀ + β₁x₁ + β₂x₂ + ...
+   - Transforma: p = σ(z) = 1/(1+e^(-z))
+   - Decide: Si p > 0.5 → Clase 1, sino → Clase 0
+
+**TABLA RÁPIDA DE LA SIGMOIDE**
+
+| z     | σ(z)  | Interpretación |
+|-------|-------|----------------|
+| -10   | 0.00  | Casi seguro clase 0 |
+| -5    | 0.01  | Muy probablemente clase 0 |
+| 0     | 0.50  | Indeciso (50-50) |
+| 5     | 0.99  | Muy probablemente clase 1 |
+| 10    | 1.00  | Casi seguro clase 1 |
+```
+"""
+
+print("✅ Contenido para el punto 2.2 creado correctamente")

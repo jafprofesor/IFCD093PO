@@ -1,0 +1,22 @@
+
+**Aprendizaje supervisado**: Tipo de aprendizaje automático donde el modelo se entrena con pares de entrada y salida etiquetados. Ejemplo: predecir el precio de una casa a partir de su tamaño.
+
+**Aprendizaje no supervisado**: El modelo encuentra patrones en datos sin etiquetas. Ejemplo: agrupar clientes por comportamiento de compra (clustering).
+
+**Regresión**: Tarea de predicción de un valor numérico continuo. Ejemplo: predecir la temperatura.
+
+**Clasificación**: Tarea de asignar una etiqueta categórica. Ejemplo: detectar si un correo es spam o no.
+
+**Overfitting**: Ocurre cuando un modelo aprende demasiado bien los datos de entrenamiento, incluyendo ruido, y falla en datos nuevos.
+
+**Underfitting**: El modelo es demasiado simple y no captura patrones relevantes en los datos.
+
+**Validación cruzada**: Técnica para evaluar la capacidad de generalización de un modelo dividiendo los datos en k particiones.
+
+**Precisión (accuracy)**: Proporción de predicciones correctas sobre el total. No es ideal para datos desbalanceados.
+
+**Random Forest**: Ensemble de árboles de decisión entrenados con subconjuntos aleatorios de datos y características.
+
+**Gradiente descendente**: Algoritmo de optimización que ajusta los parámetros del modelo minimizando la pérdida.
+
+**Red neuronal**: Modelo inspirado en el cerebro humano, compuesto por capas de neuronas artificiales. En scikit-learn, se implementa con MLPClassifier o MLPRegressor.

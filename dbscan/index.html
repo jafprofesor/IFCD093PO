@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación DBSCAN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulación del Algoritmo DBSCAN</h1>
+        
+        <div class="simulation-container">
+            <div class="canvas-container">
+                <canvas id="dbscanCanvas" width="600" height="600"></canvas>
+            </div>
+            
+            <div class="controls">
+                <div class="parameters">
+                    <div class="parameter">
+                        <label for="epsilon">Epsilon (ε):</label>
+                        <input type="range" id="epsilon" min="10" max="100" value="50" step="1">
+                        <span id="epsilonValue">50</span>
+                    </div>
+                    <div class="parameter">
+                        <label for="minPoints">MinPoints:</label>
+                        <input type="range" id="minPoints" min="2" max="20" value="5" step="1">
+                        <span id="minPointsValue">5</span>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="generateBtn">Generar Dataset</button>
+                    <button id="startBtn">Iniciar</button>
+                    <button id="pauseBtn" disabled>Pausar</button>
+                    <button id="resetBtn">Resetear</button>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="color-box core"></div>
+                        <span>Puntos Núcleo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box border"></div>
+                        <span>Puntos Frontera</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box noise"></div>
+                        <span>Ruido</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h2>Explicación del Algoritmo</h2>
+            <div id="explanationText" class="explanation-text">
+                <p>Bienvenido a la simulación del algoritmo DBSCAN. Genera un dataset y ajusta los parámetros para comenzar.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

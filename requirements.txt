@@ -1,0 +1,71 @@
+# Curso IFCD093PO - Machine Learning con Python
+# Versión Final Optimizada - 150 horas
+
+# ============================================
+# LIBRERÍAS FUNDAMENTALES
+# ============================================
+
+# Computación numérica
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Manipulación de datos
+pandas>=2.0.0
+
+# Visualización
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# ============================================
+# MACHINE LEARNING
+# ============================================
+
+# Scikit-learn (núcleo del curso)
+scikit-learn>=1.3.0
+
+# Gradient Boosting avanzado
+xgboost>=1.7.0
+lightgbm>=3.3.0
+
+# ============================================
+# JUPYTER Y NOTEBOOKS
+# ============================================
+
+jupyter>=1.0.0
+notebook>=6.5.0
+ipywidgets>=8.0.0
+nbconvert>=7.0.0
+
+# ============================================
+# UTILIDADES
+# ============================================
+
+# Reglas de asociación (análisis de cesta)
+mlxtend>=0.22.0
+
+# Reducción de dimensionalidad avanzada
+umap-learn>=0.5.0
+
+# Manejo de imágenes (proyectos)
+pillow>=9.5.0
+
+# Progress bars
+tqdm>=4.65.0
+
+# ============================================
+# OPCIONAL - DEEP LEARNING (BONUS)
+# ============================================
+
+# tensorflow>=2.13.0
+# keras>=2.13.0
+# torch>=2.0.0
+# torchvision>=0.15.0
+
+# ============================================
+# DESARROLLO Y TESTING
+# ============================================
+
+pytest>=7.3.0
+black>=23.3.0
+flake8>=6.0.0
